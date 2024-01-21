@@ -1,0 +1,59 @@
+How it went?
+Quite well overall. Installation took a while, but tutorial went smoothly. Also took a look of doing HW1 with flutter, managed to do all of the required steps, but had some difficulties with it mostly related to external packages. Might be changing to Flutter for other homeworks and project if can handle developing with it alone without support from staff.
+
+My answers will contain explanation, code part and link to documentation when possible
+
+How did you add an image and how did you adjust its size and shape?
+Image was added through resource manager, I used the image provided by the tutorial.
+Size can be added through modifier by changing size value.
+Shape can be changed through clip value by using for example RectangleShape or CircleShape
+
+modifier = Modifier
+    .size(40.dp)
+    .clip(CircleShape)
+    .border(1.5.dp, MaterialTheme.colorScheme.secondary, CircleShape)
+
+https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier
+
+
+In what ways did you change text appearance?
+Text apperance changes can be managed through color, theme and type files in ui.theme.
+In the code you need to define the style and color for the text. For example defining secondary color for in lightcolorscheme would be PurpleGrey40 and in dark it would be PurpleGrey80.
+
+Text(
+    text = msg.author,
+    color = MaterialTheme.colorScheme.secondary,
+    style = MaterialTheme.typography.titleSmall
+)
+
+
+How did you make the content scrollable?
+By using LazyColumn. It will render only elements that are visible on screen, so it is designed to be very efficient for long lists.
+
+LazyColumn {
+    items(messages) { message ->
+        MessageCard(message)
+    }
+}
+
+https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/package-summary#LazyColumn(androidx.compose.ui.Modifier,androidx.compose.foundation.lazy.LazyListState,androidx.compose.foundation.layout.PaddingValues,kotlin.Boolean,androidx.compose.foundation.layout.Arrangement.Vertical,androidx.compose.ui.Alignment.Horizontal,androidx.compose.foundation.gestures.FlingBehavior,kotlin.Boolean,kotlin.Function1)
+
+
+How do you register the user clicking on something?
+Through the modifier (Modifier.clickable). THis will handle click events
+
+Column(modifier = Modifier.clickable { isExpanded = !isExpanded })
+
+https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier
+
+How can you make that click cause a visible change?
+We can have logic for click event which does animation for the text and keeps it expanded until clicked again(tracking state). When not clicked only first line of the text is displayed, if expanded all of the text will be displayed.
+Combosable functions can store local state in memory by using "remember" and track changes to the value passed to "mutableStateOf"
+
+var isExpanded by remember { mutableStateOf(false) }
+val surfaceColor by animateColorAsState(
+    if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+)
+Column(modifier = Modifier.clickable { isExpanded = !isExpanded }) {
+
+https://developer.android.com/jetpack/compose/mental-model#recomposition
