@@ -1,0 +1,94 @@
+How it went and what was done?
+Good, first followed some guides which were outdated so it was best just to follow provided android developer material.
+
+1) Made image from the tutorial clickable and added new view with clickable button to return to the home/main page
+2) Prevented circular navigation.
+3) Refactoring and created seperate files for the views
+
+My answers will contain explanation, code part and link to documentation when possible. Saving for later reference for myself
+
+What are the essential parts for implementing navigation?
+
+Navigation consepts:
+    Host: UI element that contain the current navigation destination. 
+    Type: Navhost, NavhostFragment
+    
+    Graph: Data structure that defines all the navigiation destination within the app and how the connect together
+    Type: NavGraph
+
+    Controller: Central coordinator for managing navigation between destinations
+    Type: NavController
+
+For the implementation NavController and NavHost. with NavController destination can be managed and with NavHost to show the view.
+Remember to import required dependencies found here https://developer.android.com/guide/navigation
+
+
+Here is a code example containing navigation and circular navigation prevention:
+MainActivity.kt
+@Composable
+fun NavigationAppHost() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "home") {
+        composable("info") {
+            InfoScreen(onNavigateToHome = {
+                navController.navigate("home") {
+                    popUpTo("home") {
+                        inclusive = true
+                    }
+                }
+            }
+            )
+        }
+        composable("home") {
+            HomeScreen(onNavigateToInfo = {
+                    navController.navigate("info")
+                }
+            )
+        }
+    }
+}
+
+InfoScreen.kt
+@Composable
+fun InfoScreen(onNavigateToHome: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(text = "info screen", fontSize = 30.sp)
+
+        Button(onClick = { onNavigateToHome() }) {
+            Text(text = "Back to test screen")
+        }
+    }
+}
+
+HomeScreen contains is same as tutorial with small changes.
+
+How can you make a button that takes you to another view in the app?
+In this exercise I wanted to use the images as the button so added clickable for the modifier.
+
+modifier code change:
+modifier = Modifier
+    .size(40.dp)
+    .clip(CircleShape)
+    .border(1.5.dp, MaterialTheme.colorScheme.secondary, CircleShape)
+    .clickable( onClick = { onNavigateToInfo() })
+
+On the other page I added simple button with some text
+
+How can you prevent circular navigation?
+Circular navigation can be prevented by for example popUpTo() and inclusive when calling NavController.navigate()
+popUpTo("home") instructs the Navigation library to remove destinations from the back stack as part of the call to navigate()
+inclusive parameter with a value of true to indicate that the destination in popUpTo() should also pop off back stack
+
+Code example:
+navController.navigate("home") {
+    popUpTo("home") {
+        inclusive = true
+    }
+}
+
+documenentation:
+https://developer.android.com/guide/navigation/backstack/circular
