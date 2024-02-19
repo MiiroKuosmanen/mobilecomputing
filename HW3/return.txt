@@ -1,0 +1,26 @@
+How it went and what was done?
+Good, had short break from homeworks so had that slowed me down a bit 
+
+1) Input field for changing username and save it to db
+2) Photo picker button and saving image to application specific storage
+3) Display new username and image on homescreen
+
+How did you implement picking an image?
+By using activity result and input/output streams.
+When image is picked, it will be saved with name "image.jpg". 
+For homescreen if "image.jpg" exists use it, otherwise use original image
+
+From code lookup GetContentExample and saveImageToStorage from infoscreen.kt
+homescreen contains loadImageFromStorage
+
+
+How did you implement text input?
+Used example from material design for the input box layout.
+Saved the text input to database, which is used for username on homescreen
+
+From code lookup SimpleOutlinedTextFieldSample and saveOutput from infoscreen.kt
+DB related code is found in MainActivity.kt
+There is also some code for comment DB which isn't used yet
+
+How can you store data such that the application can display your chosen image and text even when you change views or restart application?
+Storing the iamge to application specific storage so permission and access are retained
