@@ -1,0 +1,26 @@
+How it went and what was done?
+Decent, had to rush a bit. Had trouble with basically every part of the requirements, but eventually got it working with a lot of googling
+
+What was done?
+1) Read light sensor data
+2) Ask user for permission to send notifications
+3) trigger notification when light sensor value changes
+4) Notification works even when not in the foreground
+5) when notification is clicked return to homescreen
+
+How do you check or prompt for notification permission?
+I prompt alertdialog when app is started if notifications aren't enabled yet
+
+How did you get your app to trigger a notification while it's not in the foreground?
+Notification is triggered when Light sensor value changes and shows up even when not in foreground
+because sensor listener is registered in onResume method
+
+How did you make the notification interactable?
+The notification is made interactable by setting a PendingIntent to it in the notifyUser method. 
+When the notification is clicked, this PendingIntent starts the MainActivity which opens up homescreen.
+
+What sensor are you using and how are you reading its values in the background?
+Light sensor. The sensor values are read in the onSensorChanged method
+
+What are you using the sensor input for?
+For triggering the notification and showing the new light value
