@@ -1,0 +1,31 @@
+How it went and what was done?
+Overall quite well, it was fun trying out the map functionality
+
+What was done?
+Audio record and play audio (basic)
+Video Playback
+Shows your current location on a map
+Search location on map with lat and long
+Get weather information through API for wanted location
+
+Also some personal experimenting with PWA apps on android. Seems to be working quite well.
+PWA stands for progressive web application which allows creating applications to mobile devices with web technologies (used by spotify, youtube, youtube music etc)
+Used svelte for frontend
+
+Implemented video recording and playing
+Audio recording and Playback (didn't finish saving part, this is seen at end of the video)
+Taking images and showing them
+
+If you want to test it out yourself
+Easiest way is probably:
+Connect your android device to computer
+Go to chrome://inspect/#devices
+Check that your phone is connected
+Click on port forwarding --> add 5173 for port and for ip+port add localhost:5173 --> check Enable port forwarding
+
+Download the code
+run npm run dev
+Web is running at localhost:5173 on your computer
+You should be able to access on your phone from localhost:5173
+Web page will ask you do you want to install --> this creates the app to your phone.
+After that app will work without internet connection since app is cached. If you restart the app that would reset cache --> needs connection
